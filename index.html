@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0a0205">
+<title>Милена, это для тебя ❤️</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  background:#0a0205;
+  font-family:'Georgia',serif;
+  user-select:none;-webkit-user-select:none;
+  touch-action:none;color:#fff;
+}
+canvas{display:block;position:fixed;inset:0;z-index:1}
+
+.scene{
+  position:fixed;inset:0;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:32px 26px;text-align:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 1.6s ease;
+}
+.scene.on{opacity:1;pointer-events:auto}
+
+.t1{
+  font-size:22px;line-height:1.65;
+  color:#ffd6e6;font-style:italic;
+  max-width:340px;
+  text-shadow:0 0 30px rgba(255,120,170,.6);
+}
+.t2{
+  font-size:25px;font-weight:700;line-height:1.5;
+  background:linear-gradient(90deg,#ff5a8a,#ffc0d8,#ff5a8a);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 4s linear infinite;
+  max-width:340px;
+}
+@keyframes shine{to{background-position:200% center}}
+
+.t3{
+  font-size:18px;line-height:1.75;
+  color:#ffe4ef;
+  max-width:360px;
+}
+
+.name-block{
+  margin-top:22px;
+  font-size:16px;letter-spacing:3px;
+  color:rgba(255,180,210,.8);
+  font-family:system-ui,sans-serif;
+}
+.name-block .him{color:#8fd0ff;text-shadow:0 0 15px rgba(120,200,255,.6)}
+.name-block .her{color:#ff9ac2;text-shadow:0 0 15px rgba(255,120,170,.6)}
+
+.hint-tap{
+  position:absolute;bottom:80px;left:0;right:0;
+  text-align:center;font-size:13px;
+  color:rgba(255,180,210,.6);
+  font-family:system-ui,sans-serif;
+  animation:pulse 2s ease-in-out infinite;
+  letter-spacing:1px;
+}
+@keyframes pulse{
+  0%,100%{opacity:.4}
+  50%{opacity:1}
+}
+
+.btn{
+  margin-top:36px;
+  padding:15px 42px;
+  background:linear-gradient(135deg,#ff3a70,#a01040);
+  color:#fff;border:0;border-radius:40px;
+  font-size:16px;font-weight:700;font-family:inherit;
+  letter-spacing:.6px;
+  box-shadow:0 10px 40px rgba(255,60,110,.6),
+             inset 0 1px 0 rgba(255,255,255,.35);
+  cursor:pointer;transition:transform .15s;
+}
+.btn:active{transform:scale(.95)}
+
+.final-name{
+  font-size:40px;font-weight:700;
+  background:linear-gradient(90deg,#ff5a8a,#ffd6e6,#ff5a8a);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 3s linear infinite;
+  margin-bottom:18px;
+  filter:drop-shadow(0 0 25px rgba(255,90,140,.8));
+  letter-spacing:2px;
+}
+
+.sign{
+  font-size:18px;color:#8fd0ff;font-style:italic;
+  margin-top:24px;
+  text-shadow:0 0 20px rgba(120,200,255,.6);
+}
+
+.heart-line{
+  font-size:44px;margin:14px 0;
+  animation:beat 1.3s ease-in-out infinite;
+  filter:drop-shadow(0 0 30px rgba(255,60,120,.9));
+}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  20%{transform:scale(1.2)}
+  40%{transform:scale(1)}
+  60%{transform:scale(1.12)}
+}
+
+.egor-badge{
+  position:fixed;top:18px;left:0;right:0;
+  text-align:center;z-index:3;
+  font-family:system-ui,sans-serif;
+  font-size:11px;letter-spacing:4px;
+  color:rgba(255,180,210,.45);
+  animation:pulse 3s ease-in-out infinite;
+}
+</style>
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<div class="egor-badge">ОТ ЕГОРА — ДЛЯ МИЛЕНЫ</div>
+
+<!-- Сцена 1 -->
+<div class="scene on" id="s1">
+  <div class="t1">
+    Милена...<br>
+    Сейчас между нами много километров.<br>
+    Ночь. Тишина. И где-то ты.
+  </div>
+  <div class="hint-tap">смотри дальше →</div>
+</div>
+
+<!-- Сцена 2 -->
+<div class="scene" id="s2">
+  <div class="t1">
+    Но если прислушаться —<br>
+    можно услышать, как бьётся твоё сердце.
+  </div>
+  <div class="name-block">
+    <span class="him">Егор</span> ● &nbsp;&nbsp;●  <span class="her">Милена</span>
+  </div>
+</div>
+
+<!-- Сцена 3 -->
+<div class="scene" id="s3">
+  <div class="t2">
+    Между нами уже давно<br>
+    натянута невидимая нить
+  </div>
+  <div class="t3" style="margin-top:24px">
+    Егор ↔ Милена<br><br>
+    И чем дальше мы,<br>
+    тем сильнее она натянута,<br>
+    тем крепче держит.
+  </div>
+</div>
+
+<!-- Сцена 4 -->
+<div class="scene" id="s4">
+  <div class="t1">
+    Расстояние не холодное, Милена.<br>
+    Оно тёплое — потому что в нём живёт<br>
+    моя любовь к тебе.
+  </div>
+  <div class="hint-tap">коснись экрана, чтобы почувствовать →</div>
+</div>
+
+<!-- Сцена 5 -->
+<div class="scene" id="s5">
+  <div class="heart-line">❤️</div>
+  <div class="final-name">Милена</div>
+  <div class="t3">
+    Ты — моё самое тёплое место<br>
+    во всей вселенной.<br><br>
+    Даже здесь, далеко —<br>
+    я обнимаю тебя каждую секунду.<br>
+    Держу крепко. Не отпускаю.<br><br>
+    <span style="color:#ff9ac2">Ты моя, Милена. И я твой.</span>
+  </div>
+  <button class="btn" onclick="showSecret()">Обнять в ответ 🤍</button>
+  <div class="sign">— твой Егор</div>
+</div>
+
+<script>
+(function(){
+const cv = document.getElementById("c");
+const ctx = cv.getContext("2d");
+let W, H, DPR;
+function resize(){
+  DPR = Math.min(devicePixelRatio || 1, 2);
+  W = innerWidth; H = innerHeight;
+  cv.width = W * DPR; cv.height = H * DPR;
+  cv.style.width = W + "px"; cv.style.height = H + "px";
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+}
+resize();
+addEventListener("resize", resize);
+
+let stars = [];
+function initStars(){
+  stars = [];
+  const n = Math.round(W * H / 5000);
+  for(let i=0;i<n;i++){
+    stars.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*1.4 + 0.3,
+      a: Math.random(),
+      tw: Math.random()*0.02 + 0.005,
+      phase: Math.random()*6.28
+    });
+  }
+}
+initStars();
+addEventListener("resize", initStars);
+
+let embers = [];
+function spawnEmber(x, y, big){
+  embers.push({
+    x, y,
+    vx: (Math.random()-0.5) * 0.6,
+    vy: -Math.random() * 0.9 - 0.3,
+    r: big ? (2 + Math.random()*3) : (1 + Math.random()*2),
+    life: 1,
+    decay: 0.004 + Math.random()*0.006,
+    hue: 340 + Math.random()*30,
+    sway: Math.random()*6.28,
+    swaySpeed: 0.02 + Math.random()*0.03
+  });
+}
+
+const me = { x:0, y:0, targetX:0, targetY:0, pulse:0, visible:0 };
+const her = { x:0, y:0, targetX:0, targetY:0, pulse:0, visible:0 };
+
+function updateEntityTargets(){
+  me.targetX = W * 0.22;
+  me.targetY = H * 0.55;
+  her.targetX = W * 0.78;
+  her.targetY = H * 0.55;
+  me.x = me.x || me.targetX;
+  me.y = me.y || me.targetY;
+  her.x = her.x || her.targetX;
+  her.y = her.y || her.targetY;
+}
+updateEntityTargets();
+addEventListener("resize", updateEntityTargets);
+
+let thread = { strength: 0, targetStrength: 0 };
+let warmth = { value: 0, target: 0 };
+
+let scene = 1;
+const scenes = [null,
+  document.getElementById("s1"),
+  document.getElementById("s2"),
+  document.getElementById("s3"),
+  document.getElementById("s4"),
+  document.getElementById("s5")
+];
+
+function goScene(n){
+  if(n > 5) return;
+  if(scenes[scene]) scenes[scene].classList.remove("on");
+  scene = n;
+  if(scenes[scene]) scenes[scene].classList.add("on");
+  if(navigator.vibrate) navigator.vibrate(20);
+
+  if(n === 1){
+    thread.targetStrength = 0;
+    warmth.target = 0;
+    me.visible = 0; her.visible = 0;
+  }
+  if(n === 2){
+    me.visible = 1; her.visible = 1;
+    me.x = W * 0.15; her.x = W * 0.85;
+    me.y = H * 0.52; her.y = H * 0.52;
+  }
+  if(n === 3) thread.targetStrength = 1;
+  if(n === 4) warmth.target = 0.5;
+  if(n === 5){
+    warmth.target = 1;
+    thread.targetStrength = 1.4;
+  }
+}
+
+setTimeout(()=>goScene(2), 4200);
+setTimeout(()=>goScene(3), 9200);
+
+let lastTap = 0;
+document.addEventListener("pointerdown", ()=>{
+  const now = Date.now();
+  if(now - lastTap < 500) return;
+  lastTap = now;
+
+  if(scene === 1 || scene === 2) return;
+  if(scene === 3) return goScene(4);
+  if(scene === 4){
+    for(let i=0;i<60;i++){
+      spawnEmber(W/2 + (Math.random()-0.5)*200,
+                 H/2 + (Math.random()-0.5)*200, true);
+    }
+    if(navigator.vibrate) navigator.vibrate([30,40,30]);
+    return goScene(5);
+  }
+  if(scene === 5){
+    for(let i=0;i<20;i++){
+      spawnEmber(W/2 + (Math.random()-0.5)*W,
+                 H/2 + (Math.random()-0.5)*H, false);
+    }
+  }
+});
+
+function draw(){
+  const w = warmth.value;
+  const bg = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*0.9);
+  if(w < 0.01){
+    bg.addColorStop(0, "#150510");
+    bg.addColorStop(0.6, "#0a0208");
+    bg.addColorStop(1, "#000");
+  } else {
+    const r1 = Math.round(21 + w * 60);
+    const g1 = Math.round(8 + w * 20);
+    const b1 = Math.round(20 + w * 30);
+    bg.addColorStop(0, `rgb(${r1},${g1},${b1})`);
+    bg.addColorStop(0.55, `rgb(${Math.round(10+w*30)},${Math.round(3+w*8)},${Math.round(10+w*15)})`);
+    bg.addColorStop(1, "#000");
+  }
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  for(const s of stars){
+    s.phase += s.tw;
+    const tw = 0.5 + 0.5 * Math.sin(s.phase);
+    ctx.globalAlpha = s.a * tw * (1 - w * 0.4);
+    ctx.fillStyle = "#ffe4ef";
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, 6.283);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  if(w > 0.01){
+    const glow = ctx.createRadialGradient(W/2,H*0.75,0,W/2,H*0.75,W*0.8);
+    glow.addColorStop(0, `rgba(255,120,170,${w*0.25})`);
+    glow.addColorStop(0.5, `rgba(255,80,140,${w*0.1})`);
+    glow.addColorStop(1, "rgba(255,60,120,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0,0,W,H);
+  }
+
+  if(thread.strength > 0.01 && me.visible > 0 && her.visible > 0){
+    const ts = Math.min(thread.strength, 1);
+    ctx.save();
+    ctx.strokeStyle = `rgba(255,150,190,${ts*0.7})`;
+    ctx.lineWidth = 1 + ts * 2.5;
+    ctx.shadowColor = "#ff5a8a";
+    ctx.shadowBlur = 20 * ts;
+    ctx.beginPath();
+    ctx.moveTo(me.x, me.y);
+    const mx = (me.x + her.x) / 2;
+    const my = (me.y + her.y) / 2 + 20 * (1 - ts);
+    ctx.quadraticCurveTo(mx, my, her.x, her.y);
+    ctx.stroke();
+
+    const t = (Date.now() % 3000) / 3000;
+    for(let i=0;i<3;i++){
+      const tt = (t + i/3) % 1;
+      const ix = (1-tt)*(1-tt)*me.x + 2*(1-tt)*tt*mx + tt*tt*her.x;
+      const iy = (1-tt)*(1-tt)*me.y + 2*(1-tt)*tt*my + tt*tt*her.y;
+      ctx.beginPath();
+      ctx.arc(ix, iy, 2.5 + ts*2, 0, 6.283);
+      ctx.fillStyle = `rgba(255,200,220,${ts})`;
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  drawHeartEntity(me, "#ff7ab0", w);
+  drawHeartEntity(her, "#ff7ab0", w);
+
+  for(let i=embers.length-1;i>=0;i--){
+    const e = embers[i];
+    e.sway += e.swaySpeed;
+    e.x += e.vx + Math.sin(e.sway) * 0.4;
+    e.y += e.vy;
+    e.life -= e.decay;
+    if(e.life <= 0){ embers.splice(i,1); continue; }
+
+    ctx.globalAlpha = e.life * 0.9;
+    ctx.fillStyle = `hsl(${e.hue}, 100%, 65%)`;
+    ctx.shadowColor = "#ff5a8a";
+    ctx.shadowBlur = 18;
+    ctx.beginPath();
+    ctx.arc(e.x, e.y, e.r * e.life, 0, 6.283);
+    ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 0;
+
+  if(w > 0.05 && Math.random() < 0.35){
+    spawnEmber(Math.random() * W, H - Math.random() * 100, false);
+  }
+
+  requestAnimationFrame(draw);
+}
+
+function drawHeartEntity(ent, color, warmth){
+  if(ent.visible < 0.01) return;
+  ent.visible = Math.min(1, ent.visible + 0.02);
+  ent.pulse += 0.05;
+
+  const beat = 1 + Math.sin(ent.pulse) * 0.15;
+  const baseR = 10;
+  const r = baseR * beat * (1 + warmth * 0.4);
+
+  ent.x += (ent.targetX - ent.x) * 0.03;
+  ent.y += (ent.targetY - ent.y) * 0.03;
+
+  ctx.save();
+  ctx.globalAlpha = ent.visible;
+
+  const glowR = r * 6;
+  const glow = ctx.createRadialGradient(ent.x, ent.y, 0, ent.x, ent.y, glowR);
+  glow.addColorStop(0, `rgba(255,120,170,${0.6 * ent.visible})`);
+  glow.addColorStop(0.4, `rgba(255,80,140,${0.25 * ent.visible})`);
+  glow.addColorStop(1, "rgba(255,60,120,0)");
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(ent.x, ent.y, glowR, 0, 6.283);
+  ctx.fill();
+
+  ctx.shadowColor = "#ff5a8a";
+  ctx.shadowBlur = 25;
+  ctx.fillStyle = "#ffe4ef";
+
+  const hs = r * 0.8;
+  ctx.beginPath();
+  ctx.arc(ent.x - hs*0.5, ent.y - hs*0.3, hs*0.6, 0, 6.283);
+  ctx.arc(ent.x + hs*0.5, ent.y - hs*0.3, hs*0.6, 0, 6.283);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(ent.x - hs*1.1, ent.y - hs*0.1);
+  ctx.lineTo(ent.x + hs*1.1, ent.y - hs*0.1);
+  ctx.lineTo(ent.x, ent.y + hs*1.3);
+  ctx.closePath();
+  ctx.fill();
+
+  ctx.restore();
+}
+
+function tick(){
+  thread.strength += (thread.targetStrength - thread.strength) * 0.03;
+  warmth.value += (warmth.target - warmth.value) * 0.015;
+  requestAnimationFrame(tick);
+}
+
+draw();
+tick();
+})();
+
+function showSecret(){
+  const modal = document.createElement("div");
+  modal.style.cssText = `
+    position:fixed;inset:0;z-index:20;
+    background:rgba(10,2,5,0.94);
+    backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;
+    padding:30px;opacity:0;transition:opacity .5s;
+    font-family:Georgia,serif;color:#fff;text-align:center;
+  `;
+  modal.innerHTML = `
+    <div style="max-width:340px">
+      <div style="font-size:64px;margin-bottom:20px;
+        filter:drop-shadow(0 0 30px rgba(255,90,140,.9));
+        animation:beat 1.3s ease-in-out infinite">🤍</div>
+      <div style="font-size:22px;line-height:1.7;color:#ffe4ef;font-style:italic">
+        Милена,<br>
+        я обнимаю тебя.<br>
+        Крепко-крепко.<br>
+        Чувствуешь?<br><br>
+        Я всегда рядом —<br>
+        даже когда далеко.<br><br>
+        <span style="color:#8fd0ff;font-size:19px">Твой Егор ❤️</span>
+      </div>
+      <div style="margin-top:28px;font-size:15px;
+        color:rgba(255,180,210,.7);letter-spacing:2px">
+        нажми, чтобы вернуться
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  requestAnimationFrame(()=>modal.style.opacity = "1");
+  modal.onclick = ()=>{
+    modal.style.opacity = "0";
+    setTimeout(()=>modal.remove(), 500);
+  };
+
+  for(let i=0;i<40;i++){
+    const e = document.createElement("div");
+    e.style.cssText = `
+      position:fixed;
+      left:${50 + (Math.random()-0.5)*60}%;
+      top:${50 + (Math.random()-0.5)*60}%;
+      width:${4 + Math.random()*8}px;height:${4 + Math.random()*8}px;
+      background:radial-gradient(circle,#fff,#ff5a8a);
+      border-radius:50%;
+      box-shadow:0 0 20px #ff5a8a;
+      pointer-events:none;z-index:25;
+      transition:all ${1 + Math.random()*0.8}s ease-out;
+    `;
+    document.body.appendChild(e);
+    requestAnimationFrame(()=>{
+      e.style.left = (50 + (Math.random()-0.5)*180) + "%";
+      e.style.top = (50 + (Math.random()-0.5)*180) + "%";
+      e.style.opacity = "0";
+    });
+    setTimeout(()=>e.remove(), 2000);
+  }
+  if(navigator.vibrate) navigator.vibrate([50, 40, 100, 40, 80]);
+}
+</script>
+
+</body>
+</html>
